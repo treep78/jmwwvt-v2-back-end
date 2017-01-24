@@ -1,6 +1,6 @@
 'use strict';
 
-const testDatabase = 'mongodb://localhost/express-api-template-test';
+const testDatabase = 'mongodb://localhost/jmwwvt-test';
 
 module.exports = {
   options: {

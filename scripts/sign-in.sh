@@ -1,4 +1,6 @@
 #!/bin/bash
+EMAIL="jane@said.com"
+PASSWORD="jane"
 
 API="http://localhost:4741"
 URL_PATH="/sign-in"
