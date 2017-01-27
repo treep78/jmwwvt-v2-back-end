@@ -24,15 +24,33 @@ const show = (req, res) => {
 };
 
 const create = (req, res, next) => {
+  console.log('got this far');
   let image = Object.assign(req.body.image, {
     _owner: req.user._id,
   });
   Image.create(image)
-    .then(image =>
-      res.status(201)
-        .json({
-          image: image.toJSON({ virtuals: true, user: req.user }),
-        }))
+    .then(image =>{
+      let link = image.link.split('');
+      let success=false;
+      for(let i=0; i<link.length;i++) {
+        console.log(link[i]);
+        if(link[i] === '.'){
+          let ext = link[i+1]+link[i+2]+link[i+3];
+          if(ext === 'png' || ext === 'jpg') {
+            console.log('working');
+            success=true;
+            res.status(201)
+              .json({
+                image: image.toJSON({ virtuals: true, user: req.user }),
+              });
+              break;
+            }
+          }
+        }
+        if(!success){
+          res.status(400).json({ error: 'must me a .png or .jpg link.'});
+        }
+      })
     .catch(next);
 };
 
